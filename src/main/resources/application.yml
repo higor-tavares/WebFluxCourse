@@ -1,0 +1,4 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://paulohtfreire:${DB_PASS}@webfluxcourse.bmpse.mongodb.net/webflux?retryWrites=true&w=majority&appName=WebfluxCourse
