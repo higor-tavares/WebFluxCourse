@@ -9,13 +9,13 @@ import reactor.core.publisher.Mono;
 
 public interface UserController {
 
-    @PostMapping
+    @PostMapping("/")
     ResponseEntity<Mono<Void>> save(@RequestBody UserRequest userRequest);
 
     @GetMapping("/{id}")
     ResponseEntity<Mono<UserResponse>> find(@PathVariable String id);
 
-    @GetMapping
+    @GetMapping("/")
     ResponseEntity<Flux<UserResponse>> findAll();
 
     @PatchMapping("/{id}")
