@@ -2,6 +2,7 @@ package com.higortavares.WebFluxCourse.controller;
 
 import com.higortavares.WebFluxCourse.model.request.UserRequest;
 import com.higortavares.WebFluxCourse.model.response.UserResponse;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
@@ -10,7 +11,7 @@ import reactor.core.publisher.Mono;
 public interface UserController {
 
     @PostMapping("/")
-    ResponseEntity<Mono<Void>> save(@RequestBody UserRequest userRequest);
+    ResponseEntity<Mono<Void>> save(@Valid @RequestBody UserRequest userRequest);
 
     @GetMapping("/{id}")
     ResponseEntity<Mono<UserResponse>> find(@PathVariable String id);
