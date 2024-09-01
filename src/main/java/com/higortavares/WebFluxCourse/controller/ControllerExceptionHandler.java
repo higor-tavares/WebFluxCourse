@@ -1,6 +1,7 @@
 package com.higortavares.WebFluxCourse.controller;
 
 import com.higortavares.WebFluxCourse.exception.StandardError;
+import com.higortavares.WebFluxCourse.exception.UserNotFoundException;
 import com.higortavares.WebFluxCourse.exception.ValidationError;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,17 @@ public class ControllerExceptionHandler {
                         .error(HttpStatus.BAD_REQUEST.getReasonPhrase())
                         .path(request.getPath().value())
                         .message("Email already exists")
+                .build()));
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    ResponseEntity<Mono<StandardError>> userNotFound(UserNotFoundException ex, ServerHttpRequest req) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Mono.just(StandardError.builder()
+                        .timestamp(LocalDateTime.now())
+                        .path(req.getPath().value())
+                        .status(HttpStatus.NOT_FOUND.value())
+                        .error("User not found")
+                        .message(String.format("User with id [%s] not found!", ex.getId()))
                 .build()));
     }
 
