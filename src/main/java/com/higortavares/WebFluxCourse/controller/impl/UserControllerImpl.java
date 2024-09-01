@@ -1,6 +1,7 @@
 package com.higortavares.WebFluxCourse.controller.impl;
 
 import com.higortavares.WebFluxCourse.controller.UserController;
+import com.higortavares.WebFluxCourse.mapper.UserMapper;
 import com.higortavares.WebFluxCourse.model.request.UserRequest;
 import com.higortavares.WebFluxCourse.model.response.UserResponse;
 import com.higortavares.WebFluxCourse.service.UserService;
@@ -17,6 +18,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class UserControllerImpl implements UserController {
     private final UserService userService;
+    private final UserMapper userMapper;
     @Override
     public ResponseEntity<Mono<Void>> save(UserRequest userRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(userRequest).then());
@@ -24,7 +26,7 @@ public class UserControllerImpl implements UserController {
 
     @Override
     public ResponseEntity<Mono<UserResponse>> find(String id) {
-        return null;
+        return ResponseEntity.ok(userService.find(id).map(userMapper::toResponse));
     }
 
     @Override
