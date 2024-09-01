@@ -8,6 +8,7 @@ import com.higortavares.WebFluxCourse.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
@@ -26,5 +27,9 @@ public class UserService {
     public Mono<User> find(final String id) {
         return userRepository.find(id)
                 .switchIfEmpty(Mono.error(new UserNotFoundException(id)));
+    }
+
+    public Flux<User> findAll() {
+        return userRepository.findAll();
     }
 }
